@@ -58,6 +58,8 @@ namespace PaviseApp
 
 		public const string KeyAwake = "GmAwake";
 
+		public const string KeyNetRoute = "GmNetRouteV1";
+
 		public const string KeyEnglishInput = "GmEnglishInputV1";
 
 		public const string KeyNvMaxPerf = "NvMaxPerf";
@@ -104,7 +106,7 @@ namespace PaviseApp
 
 		public static readonly string[] HandheldBlocked = new string[0];
 
-		private static readonly PolicyItem[] Items = new PolicyItem[23]
+		private static readonly PolicyItem[] Items = new PolicyItem[24]
 		{
 			new PolicyItem("PerformancePreset", PolicyValueKind.Enum, "0", "cfg.mode", "cfg.group.mode", new string[2] { "0", "1" }),
 			new PolicyItem("GmSuppress", PolicyValueKind.Bool, "1", "v14.bg.master", "cfg.group.bg", null),
@@ -128,7 +130,8 @@ namespace PaviseApp
 			new PolicyItem("AmdAntiLag", PolicyValueKind.Bool, "0", "set.amdalag", "cfg.group.gpu", null),
 			new PolicyItem("GmPauseMaintenanceV1", PolicyValueKind.Bool, "1", "gm.pausemaint", "cfg.group.env", null),
 			new PolicyItem("NvMaxPerf", PolicyValueKind.Bool, "0", "set.nvmax", "cfg.group.gpu", null),
-			new PolicyItem("NvShaderCache", PolicyValueKind.Bool, "0", "auto.nvshader", "cfg.group.gpu", null)
+			new PolicyItem("NvShaderCache", PolicyValueKind.Bool, "0", "auto.nvshader", "cfg.group.gpu", null),
+			new PolicyItem("GmNetRouteV1", PolicyValueKind.Bool, "1", "netroute.toggle", "cfg.group.env", null)
 		};
 
 		private static readonly Dictionary<string, PolicyItem> ByKey = BuildIndex();

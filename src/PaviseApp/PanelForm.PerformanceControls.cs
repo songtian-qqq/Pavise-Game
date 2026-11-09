@@ -513,6 +513,8 @@ namespace PaviseApp
 		{
 			switch (key)
 			{
+			case "GmNetRouteV1":
+				return Lang.T("netroute.detail");
 			case "GmSuppress":
 				return Lang.T("background.governance.detail");
 			case "GmBoost":

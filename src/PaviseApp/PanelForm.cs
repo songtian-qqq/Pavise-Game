@@ -500,6 +500,8 @@ namespace PaviseApp
 
 			private readonly FamilySuppressionSwitch fullscreen;
 
+			private readonly FamilySuppressionSwitch netRoute;
+
 			private readonly GameCardDetailsButton coreDetails;
 
 			private readonly Label extensionTitle;
@@ -524,11 +526,13 @@ namespace PaviseApp
 				family = MakeOption("libraryFamilyToggle", Lang.T("lib.family.suppress"), false, form.ToggleGameFamilySuppression);
 				rebar = MakeOption("libraryRebarToggle", Lang.T("lib.rebar"), false, form.ToggleGameRebar);
 				fullscreen = MakeOption("libraryFullscreenToggle", Lang.T("lib.fso"), false, form.ToggleGameFullscreenOptimizations);
+				netRoute = MakeOption("libraryNetRouteToggle", Lang.T("netroute.toggle"), false, form.ToggleGameNetRoute);
 				core.IconKey = "core";
 				core.DetailsWidth = 62;
 				family.IconKey = "family";
 				rebar.IconKey = "rebar";
 				fullscreen.IconKey = "fullscreen";
+				netRoute.IconKey = "threads";
 				coreDetails = new GameCardDetailsButton
 				{
 					Name = "libraryCoreSettings",
@@ -598,16 +602,19 @@ namespace PaviseApp
 				family.Gated = !item.RendererObserved;
 				rebar.Checked = PolicyResolver.For(profile).NvRebar;
 				fullscreen.Checked = profile.DisableFullscreenOptimizations;
+				netRoute.Checked = PolicyResolver.Read(profile, PolicyCatalog.KeyNetRoute) == "1";
 				family.Enabled = !owner.familyChangeBusy;
 				rebar.Enabled = !owner.rebarChangeBusy;
 				fullscreen.Enabled = !owner.fullscreenOptimizationsChangeBusy;
-				FamilySuppressionSwitch[] familySuppressionSwitchItems = new FamilySuppressionSwitch[4] { core, family, rebar, fullscreen };
-				string[] textEntries = new string[4]
+				netRoute.Enabled = !owner.netRouteChangeBusy;
+				FamilySuppressionSwitch[] familySuppressionSwitchItems = new FamilySuppressionSwitch[5] { core, family, rebar, fullscreen, netRoute };
+				string[] textEntries = new string[5]
 				{
 					"lib.cores.toggle.tip",
 					item.RendererObserved ? "lib.family.tip" : "lib.family.gated.body",
 					"lib.rebar.tip",
-					"lib.fso.tip"
+					"lib.fso.tip",
+					"lib.netroute.tip"
 				};
 				for (int i = 0; i < familySuppressionSwitchItems.Length; i++)
 				{
@@ -652,13 +659,13 @@ namespace PaviseApp
 				try
 				{
 					int width = Math.Max(1, base.Width);
-					FamilySuppressionSwitch[] familySuppressionSwitchItems = new FamilySuppressionSwitch[4] { core, family, rebar, fullscreen };
+					FamilySuppressionSwitch[] familySuppressionSwitchItems = new FamilySuppressionSwitch[5] { core, family, rebar, fullscreen, netRoute };
 					for (int i = 0; i < familySuppressionSwitchItems.Length; i++)
 					{
 						familySuppressionSwitchItems[i].SetBounds(0, Theme.S(4 + i * 48), width, Theme.S(40));
 					}
 					coreDetails.SetBounds(Math.Max(0, core.Width - Theme.S(65)), Theme.S(2), Theme.S(64), Theme.S(36));
-					owner.criticalThreadEditor.SetBounds(0, fullscreen.Bottom + Theme.S(8), width, owner.criticalThreadEditor.Height);
+					owner.criticalThreadEditor.SetBounds(0, netRoute.Bottom + Theme.S(8), width, owner.criticalThreadEditor.Height);
 					int uOffset = Dpi.U(owner.criticalThreadEditor.Bottom) + 8;
 					extensionTitle.Visible = extension != null;
 					if (extension != null)
@@ -1163,6 +1170,8 @@ namespace PaviseApp
 		private bool rebarChangeBusy;
 
 		private bool fullscreenOptimizationsChangeBusy;
+
+		private bool netRouteChangeBusy;
 
 		private EmptyStatePanel gameListPanel;
 

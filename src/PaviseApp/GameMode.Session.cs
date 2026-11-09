@@ -287,6 +287,7 @@ namespace PaviseApp
 			shutdownWritersStopped = false;
 			Stopwatch elapsed = Stopwatch.StartNew();
 			stopping = true;
+			EndSessionNetRoute("Stop");
 			InvalidatePowerPlanSession();
 			SyncLaboratory();
 			RevokeCriticalThreadIntent("Stop");
@@ -992,6 +993,7 @@ namespace PaviseApp
 				Logger.Log(Lang.T("log.gamemode.34") + policySnapshot.ProfileName + Lang.T("log.gamemode.35") + policySnapshot.OverrideCount + Lang.T("log.gamemode.36"));
 			}
 			BeginAutoCores(policySnapshot, isolationClean);
+			StartSessionNetRoute(policySnapshot);
 			lock (sync)
 			{
 				lastPowerPolicyKey = -1;

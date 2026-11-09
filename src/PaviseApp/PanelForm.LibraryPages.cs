@@ -110,6 +110,36 @@ namespace PaviseApp
 			RefreshGames();
 			SelectProfile(id);
 		}
+		private void ToggleGameNetRoute(GameLibraryItem item)
+		{
+			if (netRouteChangeBusy || item == null || item.Profile == null)
+			{
+				return;
+			}
+			netRouteChangeBusy = true;
+			string id = item.Profile.Id;
+			try
+			{
+				GameProfile gameProfile = FindLibraryProfile(id);
+				if (gameProfile != null)
+				{
+					bool enable = PolicyResolver.Read(gameProfile, PolicyCatalog.KeyNetRoute) != "1";
+					if (!gameMode.SetProfileOverride(id, PolicyCatalog.KeyNetRoute, enable ? "1" : "0") && !gameMode.ProfileStoreSaveFailed)
+					{
+						PaviseDialog.Warn(LibraryDialogOwner, Lang.T("netroute.toggle"), Lang.T("lib.fso.failed"));
+					}
+				}
+			}
+			finally
+			{
+				netRouteChangeBusy = false;
+				if (!base.IsDisposed && !base.Disposing)
+				{
+					RefreshGames();
+					SelectProfile(id);
+				}
+			}
+		}
 		private void ToggleGameFullscreenOptimizations(GameLibraryItem item)
 		{
 			if (fullscreenOptimizationsChangeBusy || item == null || item.Profile == null)

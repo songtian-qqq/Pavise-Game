@@ -2618,6 +2618,7 @@ namespace PaviseApp
 			InvalidateStandbyCleanerWork();
 			EndEnglishInputSession();
 			InvalidateRendererHandoff();
+            RunSessionRecoveryRoute("netroute", () => EndSessionNetRoute("Deactivate"));
             bool reportClean = RunSessionRecoveryRoute("report-finish", delegate { ReportFinish(); return true; });
             RunSessionRecoveryRoute("power-overlay", () => !PowerOverlay.HasResidue || PowerOverlay.Restore());
             RunSessionRecoveryRoute("selfyield", delegate { SelfYield.Release(); return !SelfYield.HasResidue; });

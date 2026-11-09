@@ -7601,7 +7601,199 @@ namespace PaviseApp
 			{
 				"lang.en",
 				new string[2] { "English", "English" }
-			}
+			},
+			{
+				"netroute.toggle",
+				new string[2] { "网络节点加速", "Network node acceleration" }
+			},
+			{
+				"netroute.detail",
+				new string[2] { "对局开始前实测节点池，挑出该游戏延迟最低的节点，并把这条游戏的流量交给选定节点；游戏在后台也保持生效，只有游戏进程结束或 Pavise 关闭时收回。节点池来自随包清单、本地 netnodes.txt 与订阅地址。", "Measures the node pool before the match, picks the lowest-latency node for this game and routes that game's traffic through it. Stays active while the game runs in the background; released only when the game exits or Pavise closes. The pool comes from the bundled list, a local netnodes.txt and subscription URLs." }
+			},
+			{
+				"lib.netroute.tip",
+				new string[2] { "对局时自动选节点并接管该游戏流量；切到后台不中断。", "Selects a node at match start and routes this game's traffic; backgrounding the game keeps it active." }
+			},
+			{
+				"netroute.pool.count",
+				new string[2] { "节点 {0} 个 · 随包 {1} / 本地 {2} / 订阅 {3}", "Nodes: {0} · bundled {1} / local {2} / subscription {3}" }
+			},
+			{
+				"netroute.sub.none",
+				new string[2] { "未配置订阅地址", "No subscription URL configured" }
+			},
+			{
+				"netroute.sub.writefail",
+				new string[2] { "订阅缓存写入失败", "Could not write the subscription cache" }
+			},
+			{
+				"netroute.sub.refreshed",
+				new string[2] { "订阅已更新 {0} 条，当前可用 {1} 个节点", "Subscription refreshed: {0} entries, {1} nodes available" }
+			},
+			{
+				"netroute.node.unprobed",
+				new string[2] { "未探测", "not probed" }
+			},
+			{
+				"netroute.select.empty",
+				new string[2] { "没有可用节点", "No usable node" }
+			},
+			{
+				"netroute.select.sticky",
+				new string[2] { "沿用上次节点", "Kept the previous node" }
+			},
+			{
+				"netroute.select.keep",
+				new string[2] { "新节点收益不足，保留原节点", "Challenger gain too small; kept the previous node" }
+			},
+			{
+				"netroute.select.best",
+				new string[2] { "实测延迟最低", "Lowest measured latency" }
+			},
+			{
+				"netroute.select.fallback",
+				new string[2] { "首选节点不通，已切换到可用节点", "Preferred node failed; switched to a working one" }
+			},
+			{
+				"netroute.core.nourl",
+				new string[2] { "无法获取内核下载地址", "Could not resolve the core download URL" }
+			},
+			{
+				"netroute.core.dlfail",
+				new string[2] { "内核下载或解压失败", "Core download or unpack failed" }
+			},
+			{
+				"netroute.core.installed",
+				new string[2] { "内核已就绪 {0}", "Core ready at {0}" }
+			},
+			{
+				"netroute.core.busy",
+				new string[2] { "已有内核实例在运行", "A core instance is already running" }
+			},
+			{
+				"netroute.core.startfail",
+				new string[2] { "启动失败", "start failed" }
+			},
+			{
+				"netroute.core.exited",
+				new string[2] { "内核启动后立即退出", "The core exited right after start" }
+			},
+			{
+				"netroute.core.notready",
+				new string[2] { "内核控制端口未就绪", "The core controller did not become ready" }
+			},
+			{
+				"netroute.core.stopped",
+				new string[2] { "内核已停止：{0}", "Core stopped: {0}" }
+			},
+			{
+				"netroute.state.preparing",
+				new string[2] { "正在探测节点…", "Probing nodes…" }
+			},
+			{
+				"netroute.state.active",
+				new string[2] { "已接管：{0}", "Routing through {0}" }
+			},
+			{
+				"netroute.state.failed",
+				new string[2] { "未生效", "Not active" }
+			},
+			{
+				"netroute.state.idle",
+				new string[2] { "待命", "Standing by" }
+			},
+			{
+				"netroute.log.begin",
+				new string[2] { "网络节点加速 准备对局 {0} · {1}", "netroute: preparing for {0} · {1}" }
+			},
+			{
+				"netroute.log.active",
+				new string[2] { "网络节点加速 已接管 {0} · {1} ms", "netroute: routing via {0} · {1} ms" }
+			},
+			{
+				"netroute.log.probe.done",
+				new string[2] { "探测完成", "probe finished" }
+			},
+			{
+				"netroute.log.aborted",
+				new string[2] { "对局已结束，取消接管", "session ended before routing" }
+			},
+			{
+				"netroute.log.selectfail",
+				new string[2] { "切换节点被内核拒绝", "core rejected the node switch" }
+			},
+			{
+				"netroute.log.nodefail",
+				new string[2] { "全部节点不通", "no node answered" }
+			},
+			{
+				"netroute.err.nonodes",
+				new string[2] { "节点池为空", "The node pool is empty" }
+			},
+			{
+				"netroute.err.nonodes.hint",
+				new string[2] { "把节点放入 netnodes.txt，或配置订阅地址后重试", "Put nodes in netnodes.txt or configure a subscription URL" }
+			},
+			{
+				"netroute.err.nocore",
+				new string[2] { "缺少代理内核", "Proxy core missing" }
+			},
+			{
+				"netroute.err.nocore.hint",
+				new string[2] { "把 mihomo.exe 放到程序目录或 core 子目录，或允许自动下载", "Place mihomo.exe beside Pavise or in the core folder, or allow auto download" }
+			},
+			{
+				"netroute.err.wintun",
+				new string[2] { "缺少 wintun.dll，无法创建虚拟网卡", "wintun.dll is missing, TUN cannot start" }
+			},
+			{
+				"netroute.err.wintun.hint",
+				new string[2] { "wintun.dll 需与内核放在同一目录", "wintun.dll must sit next to the core executable" }
+			},
+			{
+				"netroute.err.prepare",
+				new string[2] { "生成配置或启动内核失败", "Could not write the config or start the core" }
+			},
+			{
+				"netroute.err.noselect",
+				new string[2] { "没有选出节点", "No node was selected" }
+			},
+			{
+				"netroute.err.select",
+				new string[2] { "内核拒绝切换节点", "The core rejected the node switch" }
+			},
+			{
+				"netroute.err.exception",
+				new string[2] { "接管过程出错", "Routing failed" }
+			},
+			{
+				"netroute.err.nodelatency",
+				new string[2] { "节点延迟测量失败", "Node latency test failed" }
+			},
+			{
+				"netroute.err.busy",
+				new string[2] { "对局进行中，先结束游戏再探测", "A session is using the core; end the game before probing" }
+			},
+			{
+				"netroute.probe.manual",
+				new string[2] { "已探测 {0} 个节点", "Probed {0} nodes" }
+			},
+			{
+				"netroute.lab.title",
+				new string[2] { "网络节点加速 · 诊断", "Network node acceleration · diagnostics" }
+			},
+			{
+				"netroute.lab.detail",
+				new string[2] { "节点池会随对局自动探测；这里可以手动测一轮并查看当前状态。节点清单放在程序目录的 nodes.txt、数据目录的 netnodes.txt，或在设置里填订阅地址。", "The pool is probed at match start; use this card to run one round manually and inspect the current state. Node lists live in nodes.txt beside the app, netnodes.txt in the data folder, or a subscription URL in settings." }
+			},
+			{
+				"netroute.lab.probe",
+				new string[2] { "立即探测", "Probe now" }
+			},
+			{
+				"netroute.lab.nodes",
+				new string[2] { "节点列表", "Nodes" }
+			},
 		};
 
 		public static void Init()

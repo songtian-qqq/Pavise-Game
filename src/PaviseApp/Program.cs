@@ -663,6 +663,13 @@ namespace PaviseApp
 						}
 						try
 						{
+							NetRouteSession.HealFromCrash();
+						}
+						catch
+						{
+						}
+						try
+						{
 							PowerOverlay.HealFromCrash();
 						}
 						catch

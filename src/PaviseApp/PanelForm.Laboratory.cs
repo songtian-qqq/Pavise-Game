@@ -8,6 +8,7 @@ namespace PaviseApp
     {
         private void BuildLaboratoryOptions(Control parent, ref int y)
         {
+            BuildNetRouteOptions(parent, ref y);
             AddLaboratoryToggle(parent, ref y, LaboratoryPower.EppKey, AutoText("EPP 功耗让路", "EPP power yield"),
                 AutoText("仅插电笔记本、托管电源方案且功耗可读时尝试。显卡繁忙、CPU 有余量时调整 EPP，验证失败或瓶颈转移则恢复；退局恢复。对帧率的收益尚待验证。",
                 "Tries EPP changes on AC-powered laptops with a managed plan and readable power. Reverts on failed verification, a shifted bottleneck or session exit. Frame-rate benefits are unverified."));
@@ -41,6 +42,37 @@ namespace PaviseApp
                 bool ok = SaveLaboratoryPreference(LaboratoryPower.IdleKey, choices[index]);
                 sync(); if (!ok) ShowManualPerformanceSaveFailure();
             };
+            automationSync.Add(sync);
+        }
+        private void BuildNetRouteOptions(Control parent, ref int y)
+        {
+            PillButton probe = new PillButton(AutoText("立即探测", "Probe now"));
+            probe.Name = "netRouteProbe";
+            probe.Size = new Size(Theme.S(124), Theme.S(32));
+            probe.AccessibleName = Lang.T("netroute.lab.probe");
+            probe.AccessibleDescription = Lang.T("netroute.lab.detail");
+            probe.Click += delegate {
+                probe.Enabled = false;
+                System.Threading.ThreadPool.QueueUserWorkItem(delegate {
+                    try { NetRouteSession.ProbeNow(); }
+                    catch (Exception error) { Logger.LogFailure("netroute probe", error); }
+                });
+            };
+            string detail = Lang.T("netroute.lab.detail");
+            int height;
+            SettingCard card = MakeAutoCard(parent, 6, y, ScrollContentW,
+                FullTextCardHeight(detail, ScrollContentW, probe, 108),
+                Lang.T("netroute.lab.title"), detail, probe, out height);
+            y += height + 8;
+            Action sync = delegate {
+                NetNodePool.EnsureLoaded();
+                string text = NetRouteSession.StatusText();
+                string pool = NetNodePool.Describe();
+                if (!string.IsNullOrEmpty(pool)) text = text + " · " + pool;
+                card.SetStatus(text, Theme.Dim);
+                probe.Enabled = NetRouteSession.State != NetRouteSession.StatePreparing && !runtimeShutdownBusy && wipeBusy == 0;
+            };
+            sync();
             automationSync.Add(sync);
         }
         private bool SaveLaboratoryPreference(string key, string value)
