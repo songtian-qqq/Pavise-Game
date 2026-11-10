@@ -153,6 +153,7 @@ namespace PaviseApp
 				Line(stringBuilder, "  default-nameserver: [223.5.5.5, 119.29.29.29]");
 				Line(stringBuilder, "  nameserver: [223.5.5.5, 119.29.29.29]");
 				Line(stringBuilder, "  fallback: [tls://dns.alidns.com:853]");
+				Line(stringBuilder, "  fallback-filter: {geoip: false}");
 				Line(stringBuilder, "tun:");
 				Line(stringBuilder, "  enable: true");
 				Line(stringBuilder, "  stack: system");

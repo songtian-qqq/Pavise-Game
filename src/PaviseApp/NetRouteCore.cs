@@ -208,6 +208,18 @@ namespace PaviseApp
 			return text3;
 		}
 
+		// .NET 4.x HttpWebRequest defaults to TLS 1.0, which api.github.com rejects.
+		private static void EnableModernTls()
+		{
+			try
+			{
+				ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
+			}
+			catch
+			{
+			}
+		}
+
 		private static bool ResolveLatestCoreUrl(out string url, out string error)
 		{
 			url = null;

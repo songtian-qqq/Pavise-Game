@@ -42,6 +42,8 @@ vmess://eyJ2IjoiMiIsInBzIjoi...（标准 vmess base64）
 - 都没有时自动从 mihomo 官方 release 下载 `windows-amd64` 包并解压（约 20 MB），失败会回退到 `mirror.ghproxy.com` 前缀重试。可用注册表 `NetRouteCoreUrls` 指定自己的下载地址（每行一个 zip URL），或用 `NetRouteAutoInstallCore=0` 关闭自动下载。
 - mihomo 的官方包里不带 `wintun.dll`，Pavise 会在下载内核后另外取一份官方 wintun 构建（`wintun-0.14.1`，约 0.7 MB）并只保留 amd64 驱动。已手工放好内核但缺驱动时，同样会补下载；网络不可用则在状态卡里显示「缺少 wintun.dll」。
 - 内核由 Pavise 以当前会话身份拉起，不注册服务，不驻留。
+- 生成的配置不依赖 GeoIP/GeoSite 数据库：DNS 段落显式写了 `fallback-filter: {geoip: false}`，所以首次启动不会去 GitHub 拉 `geoip.metadb`，离线机房或杀软拦网也能起来（实测内核对缺少 MMDB 会直接 fatal 退出）。
+- 下载内核走 `HttpWebRequest`，.NET 4.x 默认 TLS 1.0，代码里已统一把 `SecurityProtocol` 升到 TLS 1.2，否则 `api.github.com` 直接报「SSL/TLS 安全通道」。
 
 ## 开关
 
