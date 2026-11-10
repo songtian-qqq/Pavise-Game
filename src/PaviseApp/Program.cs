@@ -201,7 +201,7 @@ namespace PaviseApp
 
 		internal const int TrayTipInGameMs = 6000;
 
-		internal const int OsBuildBaseline = 19041;
+		internal const int OsBuildBaseline = 14393;
 
 		internal const int OsBuildBest = 26100;
 
@@ -2057,7 +2057,7 @@ namespace PaviseApp
 			int osBuildResult = Native.OsBuild();
 			if (osBuildResult > 0)
 			{
-				return osBuildResult < 19041;
+				return osBuildResult < OsBuildBaseline;
 			}
 			return false;
 		}
@@ -2080,7 +2080,7 @@ namespace PaviseApp
 			{
 				blockIfOsTooOldValue = 2;
 			}
-			string osOldBodyText = Lang.F("os.old.body", osBuildResult, 19041, 26100);
+			string osOldBodyText = Lang.F("os.old.body", osBuildResult, OsBuildBaseline, OsBuildBest);
 			if (blockIfOsTooOldValue == 2)
 			{
 				osOldBodyText += Lang.T("os.old.restorefail");

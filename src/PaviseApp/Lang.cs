@@ -3864,7 +3864,7 @@ namespace PaviseApp
 			},
 			{
 				"os.old.body",
-				new string[2] { "当前系统内部版本 {0}，低于运行所需的 Windows 10 2004（{1}），Pavise 无法启动。\r\n\r\n后台压制依赖的能效模式、逐进程计时器精度隔离在更早的系统上不存在，调度不会生效。推荐 Windows 11 24H2（{2}）。\r\n\r\n此前版本留下的系统改动已经还原。", "This system is build {0}, below the Windows 10 2004 ({1}) required to run, so Pavise cannot start.\r\n\r\nThe efficiency mode and per-process timer isolation that background suppression relies on do not exist on earlier builds, so scheduling would have no effect. Windows 11 24H2 ({2}) is preferred.\r\n\r\nSystem changes left by earlier versions have been restored." }
+				new string[2] { "当前系统内部版本 {0}，低于运行所需的 Windows 10 1607（{1}），Pavise 无法启动。\r\n\r\n更早的系统上部分依赖现代内核 API 的功能会自动降级（能效模式、逐进程计时器精度隔离等），其余功能正常。推荐 Windows 11 24H2（{2}）。\r\n\r\n此前版本留下的系统改动已经还原。", "This system is build {0}, below the Windows 10 1607 ({1}) required to run, so Pavise cannot start.\r\n\r\nOn earlier builds some features that rely on modern kernel APIs silently downgrade (efficiency mode, per-process timer isolation), while the rest keeps working. Windows 11 24H2 ({2}) is preferred.\r\n\r\nSystem changes left by earlier versions have been restored." }
 			},
 			{
 				"os.old.restorefail",

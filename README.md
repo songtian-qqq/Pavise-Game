@@ -59,7 +59,7 @@ Results depend on the game, hardware, drivers, and background load. Compare smoo
 
 ## Download and get started
 
-Requirements: **Windows 10 version 2004 (build 19041) or later, .NET Framework 4.7.2 or later, and administrator privileges.** Features are available according to the capabilities of your PC.
+Requirements: **Windows 10 version 1607 (build 14393) or later, .NET Framework 4.7.2 or later, and administrator privileges.** Features that depend on newer kernel APIs (efficiency mode, per-process timer isolation, Windows 11 graphics hooks) downgrade automatically on older builds. Features are available according to the capabilities of your PC.
 
 | Download option | Link |
 | --- | --- |
